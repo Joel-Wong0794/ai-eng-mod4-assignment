@@ -38,6 +38,8 @@ Deployed a React frontend on Netlify that fetches tasks from
 the Spring Boot API on Railway. Configured backend CORS to
 allow requests from the Netlify domain.
 
+Added startup seed data so the frontend displays sample tasks after each backend restart or redeployment. The initializer inserts three everyday tasks only when the database is empty, demonstrating both completed and incomplete states. This provides demo data; it does not preserve manually added tasks across restarts.
+
 Frontend URL: https://ai-eng-mod4-assignment.netlify.app
 
 ![Netlify frontend showing Railway tasks](screenshots/stretch02-01_ReactFrontEnd.png)
