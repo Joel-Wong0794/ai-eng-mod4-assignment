@@ -7,8 +7,8 @@ A task management REST API built with Spring Boot, containerized with Docker and
 - Completed the mandatory assignment requirements: built and tested the Docker image locally, deployed the API on Railway, and verified the live endpoint.
 - Stretch goals:
   - Option 2: Deployed a React frontend on Netlify and configured CORS for the Railway API.
-  - Option 4: Published Docker image versions `1.0.0` and `1.0.1` to Docker Hub. The `latest` tag still needs to be confirmed as pointing to `1.0.1`.
-  - Option 1: GitHub Actions workflow added; Docker Hub secrets and a successful publishing run still need to be confirmed.
+  - Option 4: Published Docker image versions `1.0.0` and `1.0.1` to Docker Hub; CI now updates `latest` automatically.
+  - Option 1: Successfully automated testing, Docker image builds, and publishing with GitHub Actions.
 
 ## 1. Assignment Submission Description
 
@@ -67,25 +67,21 @@ Images use `MAJOR.MINOR.PATCH` versioning.
 
 ![Docker Hub showing TaskFlow image versions 1.0.0 and 1.0.1](screenshots/stretch04_01_DockerHubView-VersioningShowcase.png)
 
-### 2.3 Stretch Goal: Option 1 (Setup Pending Verification)
+### 2.3 Stretch Goal: Option 1
 
-The workflow in `.github/workflows/docker-publish.yml` runs on each push to `main`, or manually through the GitHub Actions tab. It checks out the code, sets up Java 21, runs the Maven tests, then builds and publishes the Docker image. A failed test stops the workflow before publishing.
+Implemented a GitHub Actions pipeline that runs Maven tests, builds the Docker image, and publishes it to Docker Hub on each push to `main`. Credentials are stored in GitHub Actions secrets. Failed tests prevent publishing.
 
-Each successful run publishes `wong0794/taskflow:latest` and `wong0794/taskflow:sha-<full-commit-SHA>`. The SHA tag identifies the source commit; `latest` tracks the most recent successful CI publication. The workflow does not overwrite the manual release tags `1.0.0` or `1.0.1`.
+Successful runs publish `latest` and a commit-SHA tag without changing release tags `1.0.0` or `1.0.1`. Railway and Netlify continue deploying separately.
 
-To enable publishing:
-
-1. Create a Docker Hub personal access token with Read and Write permissions. Do not put it in source code or this README.
-2. In the GitHub repository, open Settings -> Secrets and variables -> Actions -> New repository secret.
-3. Add `DOCKERHUB_USERNAME` with the value `wong0794`, and `DOCKERHUB_TOKEN` with the Docker Hub token.
-4. Commit and push the workflow to `main`. Open Actions -> Test and Publish Docker Image and inspect each step.
-5. After the run succeeds, confirm the new tags in Docker Hub and replace the pending status with a direct link to that successful run.
-
-Workflow runs: https://github.com/Joel-Wong0794/ai-eng-mod4-assignment/actions/workflows/docker-publish.yml
+Successful run: https://github.com/Joel-Wong0794/ai-eng-mod4-assignment/actions/runs/39049719748
 
 Docker Hub image: https://hub.docker.com/r/wong0794/taskflow
 
-Revision: a workflow is the YAML automation file; a runner is the machine executing it; a job groups steps on that runner. `uses` invokes a reusable action, while `run` executes a shell command. Secrets supply credentials without committing them. Railway and Netlify continue deploying separately; this workflow publishes an image and does not gate those deployments.
+GitHub Actions pipeline started:
+![GitHub Actions pipeline started](screenshots/stretch01-01_CICD-Started.png)
+
+GitHub Actions pipeline completed successfully:
+![GitHub Actions pipeline completed successfully](screenshots/stretch01-01_CICD-Success.png)
 
 ## 3. Brief Description of This Project
 
