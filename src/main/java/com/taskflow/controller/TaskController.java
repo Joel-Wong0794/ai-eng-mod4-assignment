@@ -10,6 +10,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
+@CrossOrigin(origins = "${TASKFLOW_FRONTEND_ORIGIN:http://localhost:5500}", methods = { RequestMethod.GET,
+        RequestMethod.POST })
 public class TaskController {
 
     @Autowired
