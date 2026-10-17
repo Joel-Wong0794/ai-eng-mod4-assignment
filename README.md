@@ -1,120 +1,61 @@
 # TaskFlow API
 
-A simple task management REST API built with Spring Boot. This is the sample project for the **Module 4 - End of Module Assignment**. Refer to the assignment instructions in **NTULearn** for the full list of tasks.
+A simple task management REST API built with Spring Boot. This is the sample project for the **Module 4 - End of Module Assignment**.
 
-## Assignment submission
+## 1. Assignment submission Description
 
-> [!IMPORTANT]
-> **Submit your GitHub repository link to NTULearn.** This is the only thing you submit there - your live URL, screenshots and notes all go in this `README.md`.
-
-Fill in each section below, then commit and push this `README.md` to your GitHub repository.
-
-### Live application URL
+### 1.1 Live application URL
 
 Your TaskFlow API deployed on Railway:
 
 ```
-https://your-app-name.up.railway.app/api/tasks
+https://ai-eng-mod4-assignment-production.up.railway.app/api/tasks
 ```
 
-### Screenshot: Railway dashboard
+### 1.2 Screenshot: Railway dashboard
 
-Your Railway dashboard showing the active deployment. Save the image in the `screenshots/` folder and update the file name below if needed.
+This is the Railway dashboard showing the active deployment.
 
 ![Railway dashboard](screenshots/dashboard.png)
 
-### Screenshot: Live application
+### 1.3 Screenshot: Live application
 
-Your live Railway URL returning task data (in your browser or terminal).
+(a) This is the live Railway URL that should returning task data (in the terminal). This is before adding tasks.
 
-![Live application](screenshots/application.png)
+![Live application](screenshots/application00_InitialView.png)
 
-### Errors and failures
+(b) Used POST requests to add everyday tasks, such as buying groceries, paying an electricity bill, and doing laundry.
+![Live application](screenshots/application01_PostTasks.png)
 
-If you didn't complete every task, list what you completed, what went wrong, and the error messages you saw. If everything worked, write "None".
+(c) The live Railway API returns the newly created tasks as JSON.
+![Live Railway API showing task data](screenshots/application02_TasksOnURL.png)
 
-```
-Completed: Task 1, Task 2
-
-Error at Task 3:
-<paste the error message here>
-```
-
-### Stretch goal (optional)
-
-Which stretch goal you chose (if any), what you built, and any links (for example, your frontend URL, CI pipeline run or Docker Hub tags).
+### 1.4 Stretch goal (PENDING)
 
 ```
-Stretch goal: <option number and name, or "None">
-Links: <https://...>
-Notes: <what you built and anything that didn't work>
+WORK IN PROGRESS
 ```
 
-## Getting started
+## 2. Brief Description About This Project
 
-### Prerequisites
+TaskFlow is a backend API for keeping track of everyday tasks, such as buying groceries, paying bills, and doing laundry. Each task has an automatically generated ID, a title, a description, a priority, a due date, and a completion status.
 
-- Java 21
-- Maven (or use the included Maven Wrapper)
+### 2.1 What the API Does
 
-### Running the Application
+The API accepts and returns JSON data rather than displaying a graphical task management interface. Opening the [live tasks endpoint](https://ai-eng-mod4-assignment-production.up.railway.app/api/tasks) in a browser shows the tasks currently stored in the deployed application.
 
-From the project root:
+| Method | Endpoint          | Purpose                                       |
+| ------ | ----------------- | --------------------------------------------- |
+| GET    | `/api/tasks`      | Retrieve all tasks.                           |
+| GET    | `/api/tasks/{id}` | Retrieve an existing task by its ID.          |
+| POST   | `/api/tasks`      | Create a task by sending its details as JSON. |
 
-```bash
-./mvnw spring-boot:run
-```
+New tasks are added using an HTTP client such as curl or Postman. Refreshing the live tasks endpoint then shows the updated list. If no tasks are stored, the API returns an empty JSON array (`[]`).
 
-On Windows:
+### 2.2 How It Runs
 
-```bash
-mvnw.cmd spring-boot:run
-```
+The application is built with Spring Boot and Java 21, with Maven managing its dependencies and build process. A multi-stage Dockerfile first builds the application JAR, then copies it into a smaller Java runtime image. Railway builds and runs the container to make the API publicly accessible.
 
-The application starts on `http://localhost:8080`.
+### 2.3 Data Storage Limitation
 
-### API Routes
-
-| Method | Path              | Description             | Request Body | Success Response |
-|--------|-------------------|--------------------------|---------------|-------------------|
-| GET    | `/api/tasks`      | Get all tasks            | —             | `200 OK`          |
-| GET    | `/api/tasks/{id}` | Get a single task by ID  | —             | `200 OK`          |
-| POST   | `/api/tasks`      | Create a new task        | Task JSON     | `201 Created`     |
-
-### Testing the API
-
-Create a task:
-
-```bash
-curl -X POST http://localhost:8080/api/tasks \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Complete Module 3",
-    "description": "Finish assignment",
-    "priority": "HIGH",
-    "dueDate": "2026-05-20",
-    "completed": false
-  }'
-```
-
-Get all tasks:
-
-```bash
-curl http://localhost:8080/api/tasks
-```
-
-Get a task by ID:
-
-```bash
-curl http://localhost:8080/api/tasks/1
-```
-
-### H2 Database Console
-
-While the app is running, the H2 console is available at `http://localhost:8080/h2-console`.
-
-Use the following connection settings:
-
-- JDBC URL: `jdbc:h2:mem:taskflowdb`
-- Username: `sa`
-- Password: *(leave blank)*
+Tasks are stored in an in-memory H2 database. They remain available while the application is running, but are lost whenever it restarts or redeploys. The sample tasks shown in the screenshots were added manually using POST requests; they are not automatically recreated at startup.
