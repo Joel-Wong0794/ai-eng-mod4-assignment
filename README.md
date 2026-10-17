@@ -2,7 +2,7 @@
 
 A task management REST API built with Spring Boot, containerized with Docker and deployed on Railway for the **Module 4 - End of Module Assignment**. A React frontend is deployed on Netlify.
 
-## 0.1 SUMMARY OF COMPLETED TASKS
+## 0. SUMMARY OF COMPLETED TASKS
 
 - Completed the mandatory assignment requirements: built and tested the Docker image locally, deployed the API on Railway, and verified the live endpoint.
 - Stretch goals:
