@@ -1,42 +1,49 @@
 # TaskFlow API
 
-A simple task management REST API built with Spring Boot. This is the sample project for the **Module 4 - End of Module Assignment**.
+A task management REST API built with Spring Boot, containerized with Docker and deployed on Railway for the **Module 4 - End of Module Assignment**. A React frontend is deployed on Netlify.
 
-## 1. Assignment submission Description
+## 0.1 SUMMARY OF COMPLETED TASKS
 
-### 1.1 Live application URL
+- Completed the mandatory assignment requirements: built and tested the Docker image locally, deployed the API on Railway, and verified the live endpoint.
+- Stretch goals:
+  - Option 2: Deployed a React frontend on Netlify and configured CORS for the Railway API.
+  - Option 4: Published Docker image versions `1.0.0` and `1.0.1` to Docker Hub. The `latest` tag still needs to be confirmed as pointing to `1.0.1`.
 
-Your TaskFlow API deployed on Railway:
+## 1. Assignment Submission Description
+
+### 1.1 Live Application URL
+
+TaskFlow API deployed on Railway:
 
 ```
 https://ai-eng-mod4-assignment-production.up.railway.app/api/tasks
 ```
 
-### 1.2 Screenshot: Railway dashboard
+### 1.2 Screenshot: Railway Dashboard
 
 This is the Railway dashboard showing the active deployment.
 
 ![Railway dashboard](screenshots/dashboard.png)
 
-### 1.3 Screenshot: Live application
+### 1.3 Screenshot: Live Application
 
-(a) This is the live Railway URL that should returning task data (in the terminal). This is before adding tasks.
+(a) Tested the live Railway API from the terminal before adding tasks.
 
-![Live application](screenshots/application00_InitialView.png)
+![Initial live API response](screenshots/application00_InitialView.png)
 
 (b) Used POST requests to add everyday tasks, such as buying groceries, paying an electricity bill, and doing laundry.
-![Live application](screenshots/application01_PostTasks.png)
 
-(c) The live Railway API returns the newly created tasks as JSON.
+![POST requests creating sample tasks](screenshots/application01_PostTasks.png)
+
+(c) Verified that the live Railway API returned the newly created tasks as JSON.
+
 ![Live Railway API showing task data](screenshots/application02_TasksOnURL.png)
 
-## 2 Stretch Goal
+## 2. Stretch Goals
 
 ### 2.1 Stretch Goal: Option 2
 
-Deployed a React frontend on Netlify that fetches tasks from
-the Spring Boot API on Railway. Configured backend CORS to
-allow requests from the Netlify domain.
+Deployed a React frontend on Netlify that fetches tasks from the Spring Boot API on Railway. Configured backend CORS to allow requests from the Netlify domain. The frontend displays each task's fields and shows completion as a green YES or a red NO.
 
 Added startup seed data so the frontend displays sample tasks after each backend restart or redeployment. The initializer inserts three everyday tasks only when the database is empty, demonstrating both completed and incomplete states. This provides demo data; it does not preserve manually added tasks across restarts.
 
@@ -44,7 +51,22 @@ Frontend URL: https://ai-eng-mod4-assignment.netlify.app
 
 ![Netlify frontend showing Railway tasks](screenshots/stretch02-01_ReactFrontEnd.png)
 
-## 3. Brief Description About This Project
+### 2.2 Stretch Goal: Option 4
+
+Published versioned Docker images to Docker Hub so a specific release can be pulled without rebuilding the source code.
+
+Docker Hub repository: https://hub.docker.com/r/wong0794/taskflow
+
+| Version | Description                                                                                        |
+| ------- | -------------------------------------------------------------------------------------------------- |
+| `1.0.0` | Initial published TaskFlow API image, including startup sample tasks.                              |
+| `1.0.1` | Updated the seeded electricity bill task description to be more elaborate and to demo change made. |
+
+Images use `MAJOR.MINOR.PATCH` versioning.
+
+![Docker Hub showing TaskFlow image versions 1.0.0 and 1.0.1](screenshots/stretch04_01_DockerHubView-VersioningShowcase.png)
+
+## 3. Brief Description of This Project
 
 TaskFlow is a backend API for keeping track of everyday tasks, such as buying groceries, paying bills, and doing laundry. Each task has an automatically generated ID, a title, a description, a priority, a due date, and a completion status.
 
@@ -62,7 +84,7 @@ New tasks are added using an HTTP client such as curl or Postman. Refreshing the
 
 ### 3.2 How It Runs
 
-The application is built with Spring Boot and Java 21, with Maven managing its dependencies and build process. A multi-stage Dockerfile first builds the application JAR, then copies it into a smaller Java runtime image. Railway builds and runs the container to make the API publicly accessible.
+The application is built with Spring Boot and Java 21, with Maven managing its dependencies and build process. A multi-stage Dockerfile first builds the application JAR, then copies it into a smaller Java runtime image. Railway builds and runs the container to make the API publicly accessible. Netlify builds and hosts the React frontend, which requests data from Railway. Docker Hub stores separately published, versioned backend images; it does not replace the Railway deployment.
 
 ### 3.3 Data Storage Limitation
 

@@ -28,7 +28,7 @@ public class TaskflowApiApplication {
 			taskRepository.saveAll(List.of(
 					new Task(null, "Buy groceries", "Pick up eggs, milk, bread, and vegetables",
 							"MEDIUM", today.plusDays(1), false),
-					new Task(null, "Pay electricity bill", "Check the bill and make payment",
+					new Task(null, "Pay electricity bill", "Go to PUB app, Check the bill and make payment",
 							"HIGH", today.plusDays(2), false),
 					new Task(null, "Do the laundry", "Wash clothes, hang them to dry, and fold them",
 							"LOW", today, true)));
