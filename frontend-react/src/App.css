@@ -1,0 +1,144 @@
+.task-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+}
+.brand-dot {
+  color: var(--accent);
+}
+.page-label {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+button {
+  min-width: 106px;
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: white;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+button:hover {
+  background: #10543f;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+button:focus-visible {
+  outline: 3px solid #83b9a2;
+  outline-offset: 3px;
+}
+.request-status {
+  min-height: 22px;
+  margin: 20px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.task-list {
+  display: grid;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.task-card {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+}
+.task-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px 20px;
+  margin: 0;
+}
+.task-fields > div {
+  min-width: 0;
+}
+.wide-field {
+  grid-column: 1 / -1;
+}
+dt {
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-family: monospace;
+  font-size: 12px;
+}
+dd {
+  margin: 0;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+dd h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+.task-id {
+  color: var(--accent);
+  font-family: monospace;
+  font-weight: 700;
+}
+.description {
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+.priority,
+.completion {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: #edf0f2;
+  color: #4c5963;
+  font-size: 12px;
+  font-weight: 700;
+}
+.priority {
+  color: #875c15;
+  background: #fbf0d9;
+}
+.completion {
+  color: #a12d42;
+  background: #fce9ed;
+}
+.completion.done {
+  color: #1b6d50;
+  background: #e7f3ed;
+}
+@media (max-width: 480px) {
+  .task-page {
+    padding: 28px 16px;
+  }
+  .task-card {
+    padding: 20px;
+  }
+  .task-fields {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  h1 {
+    font-size: 26px;
+  }
+}
